@@ -6,7 +6,10 @@ import WelcomeMessage from './components/WelcomeMessage';
 import Header from './components/Header';
 import MainContent from './components/MainContent';
 import Footer from './components/Footer';
+import Counter from './components/Counter';
 import UserProfile from './components/UserProfile';
+
+
 
 
 function App() {
@@ -26,6 +29,7 @@ function App() {
       <WelcomeMessage />
       <Header />
       <MainContent />
+      <Counter />
       <Footer />
       <div>
         <UserProfile 
@@ -34,7 +38,7 @@ function App() {
           bio="I love traveling and exploring new cities." 
           city="London" 
           occupation="Software Developer" 
-      />
+        />
       </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>

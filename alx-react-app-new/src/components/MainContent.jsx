@@ -10,6 +10,7 @@ function MainContent() {
     }}>
       <section style={{ marginBottom: '30px' }}>
         <h2 style={{ fontSize: '28px', color: '#333' }}>Welcome!</h2>
+        <p>I love to visit New York, Paris, and Tokyo.</p>
         <p style={{ fontSize: '16px', lineHeight: '1.6', color: '#555' }}>
           Explore some of the most beautiful cities around the world. Learn what makes them unique and plan your next adventure.
         </p>
@@ -44,3 +45,11 @@ function MainContent() {
 }
 
 export default MainContent;
+
+
+
+
+
+
+
+
