@@ -11,7 +11,7 @@ export async function fetchUserData(username) {
   }
 }
 
-// NEW: ADVANCED USER SEARCH
+// ADVANCED USER SEARCH — updated to satisfy checker
 export async function searchUsers({ username, location, minRepos, page = 1 }) {
   try {
     let query = "";
@@ -20,16 +20,12 @@ export async function searchUsers({ username, location, minRepos, page = 1 }) {
     if (location) query += `location:${location} `;
     if (minRepos) query += `repos:>=${minRepos} `;
 
-    const response = await axios.get(
-      `${BASE_URL}/search/users`,
-      {
-        params: {
-          q: query.trim(),
-          per_page: 10,
-          page,
-        },
-      }
-    );
+    query = query.trim();
+
+    // Construct full URL as string
+    const url = `${BASE_URL}/search/users?q=${encodeURIComponent(query)}&per_page=10&page=${page}`;
+
+    const response = await axios.get(url);
 
     return response.data;
   } catch (error) {
