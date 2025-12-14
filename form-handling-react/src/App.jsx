@@ -1,11 +1,7 @@
-import FormikForm from "./components/FormikForm";
+import FormikForm from "./components/formikForm";
 
 function App() {
-  return (
-    <div>
-      <FormikForm />
-    </div>
-  );
+  return <FormikForm />;
 }
 
 export default App;
