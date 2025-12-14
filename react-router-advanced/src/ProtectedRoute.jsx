@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
 
-function ProtectedRoute({ children }) {
-  const isAuthenticated = false;
-
-  return isAuthenticated ? children : <Navigate to="/login" />;
+function ProtectedRoute({ isAuth, children }) {
+  if (!isAuth) {
+    return <Navigate to="/" replace />;
+  }
+  return children;
 }
 
 export default ProtectedRoute;

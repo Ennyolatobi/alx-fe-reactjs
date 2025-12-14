@@ -1,25 +1,30 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import Profile from "./Profile";
-import Login from "./Login";
-import ProtectedRoute from "./ProtectedRoute";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import Profile from "./components/Profile";
+import User from "./components/User";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
+        {/* Public route */}
         <Route path="/" element={<Home />} />
+
+        {/* Protected nested route */}
         <Route
           path="/profile/*"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute isAuth={true}>
               <Profile />
             </ProtectedRoute>
           }
         />
-        <Route path="/login" element={<Login />} />
+
+        {/* Dynamic route */}
+        <Route path="/user/:username" element={<User />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 
