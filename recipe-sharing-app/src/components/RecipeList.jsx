@@ -1,27 +1,22 @@
-// src/components/RecipeList.jsx
-import React from 'react';
-import { useRecipeStore } from './recipeStore';
-import { Link } from 'react-router-dom'; // <-- needed for navigation
+import React from "react";
+import { useRecipeStore } from "../store/recipeStore";
 
 const RecipeList = () => {
-  const recipes = useRecipeStore(state => state.recipes);
-  const filteredRecipes = useRecipeStore(state => state.filteredRecipes);
-  const searchTerm = useRecipeStore(state => state.searchTerm);
+  const recipes = useRecipeStore((state) => state.recipes);
 
-  const displayedRecipes = searchTerm ? filteredRecipes : recipes;
+  if (recipes.length === 0) {
+    return <p className="text-gray-600 mt-4">No recipes added yet.</p>;
+  }
 
   return (
-    <div>
-      {displayedRecipes.map(recipe => (
+    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+      {recipes.map((recipe) => (
         <div
           key={recipe.id}
-          style={{ border: '1px solid #ccc', padding: '10px', marginBottom: '10px' }}
+          className="p-4 border rounded shadow hover:shadow-lg transition"
         >
-          {/* Link to recipe details page */}
-          <Link to={`/recipes/${recipe.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-            <h3>{recipe.title}</h3>
-            <p>{recipe.description}</p>
-          </Link>
+          <h3 className="text-xl font-bold mb-2">{recipe.title}</h3>
+          <p className="text-gray-700">{recipe.description}</p>
         </div>
       ))}
     </div>
