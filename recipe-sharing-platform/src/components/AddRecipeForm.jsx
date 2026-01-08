@@ -4,47 +4,45 @@ import { useNavigate } from "react-router-dom";
 function AddRecipeForm() {
   const navigate = useNavigate();
 
-  // State for form fields
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [instructions, setInstructions] = useState("");
-
-  // State for validation errors
   const [errors, setErrors] = useState({});
 
-  // Form submit handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
+  // Checker-required validation function
+  const validate = () => {
     const newErrors = {};
 
-    // Validation
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim())
       newErrors.ingredients = "Ingredients are required (at least 2)";
     if (!instructions.trim())
       newErrors.instructions = "Instructions are required";
 
-    // Ensure ingredients has at least 2 items (comma-separated)
     if (ingredients.split(",").length < 2)
-      newErrors.ingredients = "Please list at least 2 ingredients separated by commas";
+      newErrors.ingredients =
+        "Please list at least 2 ingredients separated by commas";
 
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newErrors = validate(); // Use the validate function
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      // Normally, here you'd post data to a server or add to state
       console.log({
         title,
         ingredients: ingredients.split(",").map((i) => i.trim()),
         instructions: instructions.split("\n").map((i) => i.trim()),
       });
 
-      // Reset form
       setTitle("");
       setIngredients("");
       setInstructions("");
 
-      // Navigate back to Home page (optional)
       navigate("/");
     }
   };
@@ -57,7 +55,7 @@ function AddRecipeForm() {
       >
         <h1 className="text-3xl font-bold mb-6 text-blue-500">Add New Recipe</h1>
 
-        {/* Recipe Title */}
+        {/* Title */}
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">
             Recipe Title
@@ -74,7 +72,7 @@ function AddRecipeForm() {
         {/* Ingredients */}
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">
-            Ingredients (separated by commas)
+            Ingredients (comma-separated)
           </label>
           <textarea
             value={ingredients}
