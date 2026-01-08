@@ -1,6 +1,6 @@
 import React from "react";
 import { useRecipeStore } from "./recipeStore";
-
+import { Link } from "react-router-dom";
 
 const RecipeList = () => {
   const recipes = useRecipeStore((state) => state.recipes);
@@ -17,7 +17,13 @@ const RecipeList = () => {
           className="p-4 border rounded shadow hover:shadow-lg transition"
         >
           <h3 className="text-xl font-bold mb-2">{recipe.title}</h3>
-          <p className="text-gray-700">{recipe.description}</p>
+          <p className="text-gray-700 mb-2">{recipe.description}</p>
+          <Link
+            to={`/recipe/${recipe.id}`}
+            className="text-blue-500 hover:underline"
+          >
+            View Details
+          </Link>
         </div>
       ))}
     </div>
