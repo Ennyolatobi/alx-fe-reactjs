@@ -14,6 +14,15 @@ function HomePage() {
       <h1 className="text-4xl font-bold text-center mb-10 text-blue-500">
         Recipe Sharing Platform
       </h1>
+      <div className="flex justify-center mb-8">
+        <Link
+            to="/add-recipe"
+            className="bg-blue-500 text-white font-semibold py-2 px-4 rounded hover:bg-blue-600 transition"
+        >
+            Add New Recipe
+        </Link>
+      </div>
+
       <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {recipes.map((recipe) => (
           <div
