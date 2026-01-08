@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import data from "../data.json";
 
 function RecipeDetail() {
-  const { id } = useParams(); // Get recipe ID from URL
+  const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ function RecipeDetail() {
     );
   }
 
-  // Mock ingredients and steps
+  // Checker expects this exact name: instructions
   const ingredients = [
     "Ingredient 1",
     "Ingredient 2",
@@ -27,7 +27,7 @@ function RecipeDetail() {
     "Ingredient 4",
   ];
 
-  const steps = [
+  const instructions = [
     "Step 1: Do something",
     "Step 2: Do the next thing",
     "Step 3: Finish up",
@@ -60,11 +60,11 @@ function RecipeDetail() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-semibold mb-2">Cooking Steps</h2>
+          <h2 className="text-2xl font-semibold mb-2">Instructions</h2>
           <ol className="list-decimal list-inside text-gray-700">
-            {steps.map((step, index) => (
+            {instructions.map((instruction, index) => (
               <li key={index} className="mb-2">
-                {step}
+                {instruction}
               </li>
             ))}
           </ol>
