@@ -3,10 +3,10 @@ import { useRecipeStore } from "./recipeStore";
 import { Link } from "react-router-dom";
 
 const RecipeList = () => {
-  const recipes = useRecipeStore((state) => state.recipes);
+  const recipes = useRecipeStore((state) => state.filteredRecipes);
 
   if (recipes.length === 0) {
-    return <p className="text-gray-600 mt-4">No recipes added yet.</p>;
+    return <p className="text-gray-600 mt-4">No recipes found.</p>;
   }
 
   return (
@@ -16,7 +16,7 @@ const RecipeList = () => {
           key={recipe.id}
           className="p-4 border rounded shadow hover:shadow-lg transition"
         >
-          <h3 className="text-xl font-bold mb-2">{recipe.title}</h3>
+          <h3 className="text-xl font-bold mb-2 text-blue-500">{recipe.title}</h3>
           <p className="text-gray-700 mb-2">{recipe.description}</p>
           <Link
             to={`/recipe/${recipe.id}`}

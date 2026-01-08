@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
+import SearchBar from "./components/SearchBar";
+import { useRecipeStore } from "./components/recipeStore";
 
 function App() {
+  const setRecipes = useRecipeStore((state) => state.setRecipes);
+
+  // Optional: initialize with mock recipes
+  useEffect(() => {
+    const initialRecipes = [
+      { id: 1, title: "Spaghetti Carbonara", description: "Classic Italian pasta." },
+      { id: 2, title: "Chicken Tikka Masala", description: "Spicy and creamy." },
+    ];
+    setRecipes(initialRecipes);
+  }, [setRecipes]);
+
   return (
     <Router>
       <div className="min-h-screen bg-gray-100 p-6">
@@ -18,6 +31,7 @@ function App() {
             element={
               <>
                 <AddRecipeForm />
+                <SearchBar />
                 <RecipeList />
               </>
             }
