@@ -1,15 +1,17 @@
 import create from "zustand";
 
 export const useRecipeStore = create((set, get) => ({
-  recipes: [],             // all recipes
-  searchTerm: "",          // current search input
-  filteredRecipes: [],     // recipes filtered by search term
+  recipes: [],
+  searchTerm: "",
+  filteredRecipes: [],
+  favorites: [],
+  recommendations: [],
 
   // Initialize recipes
   setRecipes: (recipes) =>
     set({ recipes, filteredRecipes: recipes }),
 
-  // Add a recipe
+  // Recipe CRUD actions
   addRecipe: (newRecipe) =>
     set((state) => {
       const updatedRecipes = [...state.recipes, newRecipe];
@@ -21,7 +23,6 @@ export const useRecipeStore = create((set, get) => ({
       };
     }),
 
-  // Update a recipe
   updateRecipe: (id, updatedRecipe) =>
     set((state) => {
       const updatedRecipes = state.recipes.map((r) =>
@@ -35,29 +36,49 @@ export const useRecipeStore = create((set, get) => ({
       };
     }),
 
-  // Delete a recipe
   deleteRecipe: (id) =>
     set((state) => {
       const updatedRecipes = state.recipes.filter((r) => r.id !== id);
+      const updatedFavorites = state.favorites.filter((fid) => fid !== id);
       return {
         recipes: updatedRecipes,
+        favorites: updatedFavorites,
         filteredRecipes: updatedRecipes.filter((r) =>
           r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
         ),
       };
     }),
 
-  // Set search term
+  // Search
   setSearchTerm: (term) => {
     set({ searchTerm: term });
     get().filterRecipes();
   },
 
-  // Filter recipes based on search term
   filterRecipes: () =>
     set((state) => ({
       filteredRecipes: state.recipes.filter((r) =>
         r.title.toLowerCase().includes(state.searchTerm.toLowerCase())
+      ),
+    })),
+
+  // Favorites
+  addFavorite: (recipeId) =>
+    set((state) => ({
+      favorites: [...new Set([...state.favorites, recipeId])],
+    })),
+
+  removeFavorite: (recipeId) =>
+    set((state) => ({
+      favorites: state.favorites.filter((id) => id !== recipeId),
+    })),
+
+  // Recommendations (mock logic based on favorites)
+  generateRecommendations: () =>
+    set((state) => ({
+      recommendations: state.recipes.filter(
+        (recipe) =>
+          state.favorites.includes(recipe.id) && Math.random() > 0.5
       ),
     })),
 }));

@@ -4,12 +4,13 @@ import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
 import SearchBar from "./components/SearchBar";
+import FavoritesList from "./components/FavoritesList";
+import RecommendationsList from "./components/RecommendationsList";
 import { useRecipeStore } from "./components/recipeStore";
 
 function App() {
   const setRecipes = useRecipeStore((state) => state.setRecipes);
 
-  // Optional: initialize with mock recipes
   useEffect(() => {
     const initialRecipes = [
       { id: 1, title: "Spaghetti Carbonara", description: "Classic Italian pasta." },
@@ -33,6 +34,8 @@ function App() {
                 <AddRecipeForm />
                 <SearchBar />
                 <RecipeList />
+                <FavoritesList />
+                <RecommendationsList />
               </>
             }
           />
